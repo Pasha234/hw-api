@@ -2,62 +2,110 @@
 
 namespace App\Entity;
 
+use App\Repository\PaymentRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: PaymentRepository::class)]
 class Payment
 {
-    private string $fio;
-    private float $total;
-    private string $date;
-    private string $email;
-    private ?string $transaction_id;
-    private ?string $status;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    public function __construct($fio, $total, $date, $email, $transaction_id = null, $status = null)
+    #[ORM\Column(length: 255)]
+    private ?string $fio = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $total = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTime $date = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $transaction_id = null;
+
+    #[ORM\Column(nullable: true, enumType: PaymentStatus::class)]
+    private ?PaymentStatus $status = null;
+
+    public function getId(): ?int
     {
-        $this->fio = $fio;
-        $this->total = $total;
-        $this->date = $date;
-        $this->email = $email;
-        $this->transaction_id = $transaction_id;
-        $this->status = $status ?? PaymentStatus::pending->value;
+        return $this->id;
     }
 
-    public function getFio(): string
+    public function getFio(): ?string
     {
         return $this->fio;
     }
 
-    public function getTotal(): float
+    public function setFio(string $fio): static
+    {
+        $this->fio = $fio;
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
     {
         return $this->total;
     }
 
-    public function getDate(): string
+    public function setTotal(string $total): static
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
-    public function getEmail(): string
+    public function setDate(\DateTime $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getTransactionId(): string
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTransactionId(): ?string
     {
         return $this->transaction_id;
     }
 
-    public function setTransactionId(string $transaction_id)
+    public function setTransactionId(?string $transaction_id): static
     {
         $this->transaction_id = $transaction_id;
+
+        return $this;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?PaymentStatus
     {
         return $this->status;
     }
 
-    public function setStatus(PaymentStatus $status)
+    public function setStatus(?PaymentStatus $status): static
     {
-        $this->status = $status->value;
+        $this->status = $status;
+
+        return $this;
     }
 }

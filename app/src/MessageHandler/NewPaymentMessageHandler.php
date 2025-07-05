@@ -17,10 +17,7 @@ class NewPaymentMessageHandler
     public function __invoke(NewPaymentMessage $message)
     {
         $this->processNewPayment->execute(new Request(
-            $message->getFio(),
-            $message->getTotal(),
-            $message->getDate(),
-            $message->getEmail(),
+            $message->getId(),
         ));
     }
 }

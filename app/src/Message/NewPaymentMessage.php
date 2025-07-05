@@ -4,36 +4,15 @@ namespace App\Message;
 
 class NewPaymentMessage
 {
-    private string $fio;
-    private float $total;
-    private string $date;
-    private string $email;
+    private int $id;
 
-    public function __construct($fio, $total, $date, $email)
+    public function __construct($id)
     {
-        $this->fio = $fio;
-        $this->total = $total;
-        $this->date = $date;
-        $this->email = $email;
+        $this->id = $id;
     }
 
-    public function getFio(): string
+    public function getId(): int
     {
-        return $this->fio;
-    }
-
-    public function getTotal(): float
-    {
-        return $this->total;
-    }
-
-    public function getDate(): string
-    {
-        return $this->date;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
+        return $this->id;
     }
 }
