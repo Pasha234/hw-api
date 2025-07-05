@@ -15,7 +15,7 @@
 
 1. Запустить проект через `./docker-build.sh`
 
-2. Сделать POST запрос. При успешном выполнении
+2. Сделать POST запрос. При успешном выполнении возвращается id
 ```bash
 curl --request POST \
   --url http://localhost/payment \
